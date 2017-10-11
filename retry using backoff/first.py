@@ -8,10 +8,12 @@ import backoff
 # for logging all the data into test.log file
 logging.basicConfig(filename="test.log",level=logging.INFO,format="%(asctime)s:%(levelname)s:%(message)s")
 
+#backoff decorator for Timeout exceptions handling
 @backoff.on_exception(backoff.expo,requests.exceptions.Timeout, max_value = 1, max_tries = 10)
 def requests_retry():
 	logging.info("In the function")
 	print "Running"
+	#Deployed on port 4040
 	return requests.get('http://127.0.0.1:4040/',timeout=1)
 
 
